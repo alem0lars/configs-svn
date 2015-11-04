@@ -1,0 +1,8 @@
+svn:
+  mergetool:
+    cmd: ksdiff
+  difftool:
+    cmd: ksdiff
+
+features:
+  - svn
