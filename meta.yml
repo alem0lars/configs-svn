@@ -1,0 +1,6 @@
+elems:
+  - src: elems/(config)$
+    dst: ~/.subversion/<1>
+    only:
+      features:
+        - svn
