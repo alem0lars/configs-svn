@@ -1,8 +1,1 @@
-svn:
-  mergetool:
-    cmd: ksdiff
-  difftool:
-    cmd: ksdiff
-
-features:
-  - svn
+# => inherits: generic, with-kaleidoscope <= #
