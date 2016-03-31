@@ -3,3 +3,6 @@ svn:
     cmd: ksdiff
   difftool:
     cmd: ksdiff
+
+features:
+  - kaleidoscope
