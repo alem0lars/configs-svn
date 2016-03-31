@@ -31,36 +31,38 @@
 #                                                                              │
 # ─────────────────────────────────────────────────────────────────────────────┤
 <% define_locals do
-  variable "svn.difftool.cmd",  type: :string?
-  variable "svn.mergetool.cmd", type: :string?
+  prefixed(:"svn.") do
+    variable :"difftool.cmd",  type: :string?, as: :difftool_cmd
+    variable :"mergetool.cmd", type: :string?, as: :mergetool_cmd
+  end
 
-  computed("password_store") { case_os osx: "keychain", linux: "gpg-agent" }
+  computed(:password_store) { case_os osx: "keychain", linux: "gpg-agent" }
 end -%>
 # ─────────────────────────────────────────────────────────────────────────────┘
 
 [auth]
 
+  <% if local? :password_store %>
   # Set password stores used by Subversion.
   # They should be delimited by spaces or commas.
   # The order of values determines the order in which password stores are used.
-  <% local?("password_store") do |password_store| %>
-  password-stores = <%= password_store %>
+  password-stores = <%= local! :password_store %>
   <% end -%>
 
 [helpers]
 
+  <% if local? :difftool_cmd %>
   # Set diff-cmd to the absolute path of your 'diff' program.
   # This will override the compile-time default, which is to use Subversion's
   # internal diff implementation.
-  <% local?("svn.difftool.cmd") do |cmd| %>
-  diff-cmd = <%= cmd %>
+  diff-cmd = <%= local! :difftool_cmd %>
   <% end -%>
 
+  <% if local? :mergetool_cmd %>
   # Set merge-tool-cmd to the command used to invoke your external merging
   # tool of choice. Subversion will pass 5 arguments to the specified command:
   # base theirs mine merged wcfile.
-  <% local?("svn.mergetool.cmd") do |cmd| %>
-  merge-tool-cmd = <%= cmd %>
+  merge-tool-cmd = <%= local! :mergetool_cmd %>
   <% end -%>
 
 [tunnels]
