@@ -34,8 +34,7 @@
   variable "svn.difftool.cmd",  type: :string?
   variable "svn.mergetool.cmd", type: :string?
 
-  computed "password_store", lambda { case_os osx:   "keychain",
-                                              linux: "gpg-agent" }
+  computed("password_store") { case_os osx: "keychain", linux: "gpg-agent" }
 end -%>
 # ─────────────────────────────────────────────────────────────────────────────┘
 
