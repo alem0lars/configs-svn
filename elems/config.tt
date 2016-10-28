@@ -31,10 +31,8 @@
 #                                                                              │
 # ─────────────────────────────────────────────────────────────────────────────┤
 <% define_locals do
-  prefixed(:"svn.") do
-    variable :"difftool.cmd",  type: :string?, as: :difftool_cmd
-    variable :"mergetool.cmd", type: :string?, as: :mergetool_cmd
-  end
+  variable :"svn.difftool.cmd",  type: :string?, as: :difftool_cmd
+  variable :"svn.mergetool.cmd", type: :string?, as: :mergetool_cmd
 
   computed(:password_store) { case_os osx: "keychain", linux: "gpg-agent" }
 end -%>
